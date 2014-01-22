@@ -1,0 +1,24 @@
+@media screen and (min-width: 1200px) {
+	span.mktError span.mktFormMsg {
+				left: 176px !important;
+			}
+}
+
+@media screen and (max-width:1199px) and (min-width: 990px) {
+	span.mktError span.mktFormMsg {
+				left: 109px !important;
+			}
+}
+
+@media screen and (max-width:989px) and (min-width: 768px) {
+	span.mktError span.mktFormMsg {
+				left: 521px !important;
+			}
+}
+
+@media screen and (max-width: 767px) {
+	span.mktError span.mktFormMsg {
+				left: 12px !important;
+				top: -10px;
+			}
+}

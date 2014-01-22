@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>ServiceTrade</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!-- Bootstrap -->
+		<link href="css/bootstrap.min.css" rel="stylesheet">
+		<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+		<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+		<!--[if lt IE 9]>
+		<script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+		<script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+		<![endif]-->
+		
+		<!-- Styles to Override in ST-specific sheet -->
+		<style>
+			body{
+				background: #f5f5f6;
+				color: #7d7d7d;
+				font-size: 20px;
+				font-family: "Proxima Nova", sans-serif;
+				line-height: 24px;
+				padding-top: 100px;
+			}
+			
+			.navbar{
+				background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAByCAYAAACSo7vmAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAyJpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYxIDY0LjE0MDk0OSwgMjAxMC8xMi8wNy0xMDo1NzowMSAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RSZWY9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZVJlZiMiIHhtcDpDcmVhdG9yVG9vbD0iQWRvYmUgUGhvdG9zaG9wIENTNS4xIFdpbmRvd3MiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6NjYzNTM2MTYzN0I0MTFFMjk3NDdBRkE3N0ZEODdDRkYiIHhtcE1NOkRvY3VtZW50SUQ9InhtcC5kaWQ6NjYzNTM2MTczN0I0MTFFMjk3NDdBRkE3N0ZEODdDRkYiPiA8eG1wTU06RGVyaXZlZEZyb20gc3RSZWY6aW5zdGFuY2VJRD0ieG1wLmlpZDo2NjM1MzYxNDM3QjQxMUUyOTc0N0FGQTc3RkQ4N0NGRiIgc3RSZWY6ZG9jdW1lbnRJRD0ieG1wLmRpZDo2NjM1MzYxNTM3QjQxMUUyOTc0N0FGQTc3RkQ4N0NGRiIvPiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PhhGJvMAAAAkSURBVHjaYvj///9NJgYgGCVGCVwECKgyAwl2EMEAIv4BBBgAgwoF5NRa5TsAAAAASUVORK5CYII=') transparent;
+				height: 100px;
+			}
+			
+			.navbar-brand{
+				background: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAZAAAABkCAYAAACoy2Z3AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA/JpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuNS1jMDE0IDc5LjE1MTQ4MSwgMjAxMy8wMy8xMy0xMjowOToxNSAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtbG5zOmRjPSJodHRwOi8vcHVybC5vcmcvZGMvZWxlbWVudHMvMS4xLyIgeG1wTU06T3JpZ2luYWxEb2N1bWVudElEPSJ1dWlkOjVEMjA4OTI0OTNCRkRCMTE5MTRBODU5MEQzMTUwOEM4IiB4bXBNTTpEb2N1bWVudElEPSJ4bXAuZGlkOjc3RDZGMDcwNUQ2MjExRTM5NDU3QTFGRkY3M0YzNjUyIiB4bXBNTTpJbnN0YW5jZUlEPSJ4bXAuaWlkOjc3RDZGMDZGNUQ2MjExRTM5NDU3QTFGRkY3M0YzNjUyIiB4bXA6Q3JlYXRvclRvb2w9IkFkb2JlIElsbHVzdHJhdG9yIENTNS4xIj4gPHhtcE1NOkRlcml2ZWRGcm9tIHN0UmVmOmluc3RhbmNlSUQ9InhtcC5paWQ6Rjg3RjExNzQwNzIwNjgxMTkyQjBERUIzMjYwMEFCQTIiIHN0UmVmOmRvY3VtZW50SUQ9InhtcC5kaWQ6Rjg3RjExNzQwNzIwNjgx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') top left no-repeat;
+				background-size: 100%;
+				height: 50px;
+				margin-left: 20px;
+				text-indent: -4000px;
+				width: 200px;
+			}
+			#screenshot{
+				background: url('http://us.123rf.com/400wm/400/400/lisafx/lisafx0903/lisafx090300104/4531409-two-workers-on-the-roof-of-a-building-working-on-the-air-conditioning-unit.jpg') 60% 30%;
+				background-size: 100%;
+				border-bottom: 1px solid #e4e4e4;
+				height: 300px; 
+				width: 100%; 
+			}
+			#content{
+				background: #fff;
+				border-left: 1px solid #e4e4e4;
+				border-right: 1px solid #e4e4e4;
+				padding: 40px;
+			}
+			#content h2{
+				color: #1f1f1f;
+				font-family: "Proxima Nova", sans-serif;
+				font-size: 36px;
+				font-weight: 700;
+				letter-spacing: -1px;
+				margin: 0 0 10px 0;
+			}
+			img#screenshot{
+				margin-bottom: 20px;
+			}
+			#copy{
+				margin-bottom: 20px;
+			}
+			#pricing .panel{
+				text-align: center;
+			}
+			#pricing .panel-body p{
+				font-size: 72px;
+				font-weight: bold;
+				letter-spacing: -4px;
+				line-height: 72px;
+				margin-bottom: 0px
+			}
+			#pricing .panel-body span{
+				font-size: 14px;
+			}
+			#pricing .list-group-item{
+				font-size: 16px;
+			}
+			#pricing .min-users{
+				float: right;
+				font-size: 14px;
+				font-style: italic;
+				margin: -20px 0 0 10px;
+			}
+			#features .glyphicon-ok{
+				color:#14ab0c
+			}
+			#app-store-icons img{
+				margin-bottom: 20px;
+			}
+			footer{
+				background: #4e4e4e;
+				color: #fff;
+				font-size: 18px;
+				font-weight: bold;
+				line-height: 20px;
+				padding: 40px 0;
+			}
+			.centered{
+				float: none;
+				margin: 0 auto;
+			}
+			@media screen and (max-width:1199px) and (min-width: 990px) {
+				#screenshot{
+					height: 200px;
+				}
+			}
+			@media screen and (max-width:989px) {
+				body{
+					padding-top: 75px;
+				 }
+				#screenshot{
+					height: 150px;
+				}
+				.navbar{
+					 height: 75px;
+				 }
+				.navbar-brand{
+				 	height: 35px;
+				 	width: 145px;
+			 	}
+			 	#content{
+				 	padding: 20px;
+			 	}
+			 	.btn{
+				 	width: 100%;
+			 	}
+			}
+		</style>
+	</head>
+	<body>
+		<!-- Navbar -->
+		<header class="navbar navbar-default navbar-fixed-top">
+			<div class="container">
+				<h1 class="navbar-brand">ServiceTrade</h1>
+			</div>
+		</header>
+		<!-- End Navbar -->
+		<!-- Body Content -->
+		<div id="screenshot"></div>
+		<div class="container">
+			<div id="content">
+				<div id="copy">
+					<h2>Pricing</h2>
+					<p>Our pricing is structured to provide you the most flexibility possible by keeping things simple and only making you pay for the features you need.</p>
+					<p><i>All prices are per Technician User, per Month, paid Annually. Add 20% for Monthly Payment terms.</i></p>
+				</div>
+				<div class="row centered" id="pricing">
+					<div class="col-md-4 col-sm-4">
+						<div class="panel panel-info">
+							<div class="panel-heading">
+								<h3 class="panel-title">Basic</h3>
+							</div>
+							<div class="panel-body">
+								<p>$29</p>
+								<span class="term">Per Technician Per Month</span>
+							</div>
+							<ul class="list-group">
+								<li class="list-group-item">All ServiceTrade Core Features</li>
+								<li class="list-group-item">Up to 6 Administrative Users</li>
+								<li class="list-group-item">Support for 1 Pricing Contract</li>
+								<li class="list-group-item">Digital Setup for 2 Forms</li>
+								<li class="list-group-item">Limited to 10 Trucks</li>
+								<li class="list-group-item"><button class="btn btn-success btn-lg">Sign Up</button></li>
+							</ul>
+						</div>
+					</div>
+					<div class="col-md-4 col-sm-4">
+						<div class="panel panel-primary">
+							<div class="panel-heading">
+								<h3 class="panel-title">Plus</h3>
+							</div>
+							<div class="panel-body">
+								<p>$39</p>
+								<span class="term">Per Technician Per Month</span>
+
+							</div>
+							<ul class="list-group">
+								<li class="list-group-item">All ServiceTrade Core Features</li>
+								<li class="list-group-item">Unlimited Administrative Users</li>
+								<li class="list-group-item">Support for 10 Pricing Contracts</li>
+								<li class="list-group-item">Digital Setup for 10 Forms</li>
+								<li class="list-group-item">QuickBooks Connector</li>
+								<li class="list-group-item"><button class="btn btn-success btn-lg">Sign Up</button></li>
+							</ul>
+						</div>
+					</div>
+					<div class="col-md-4 col-sm-4">
+						<div class="panel panel-info">
+							<div class="panel-heading">
+								<h3 class="panel-title">Max</h3>
+							</div>
+							<div class="panel-body">
+								<p>$49*</p>
+								<span class="term">Per Technician Per Month</span>
+
+							</div>
+							<ul class="list-group">
+								<li class="list-group-item">All ServiceTrade Core Features</li>
+								<li class="list-group-item">Unlimited Administrative Users</li>
+								<li class="list-group-item">Unlimited Support for Pricing Contracts</li>
+								<li class="list-group-item">Digital Setup for 20 Forms</li>
+								<li class="list-group-item">Unlimited API Support (QuickBooks, PeachTree, etc.)</li>
+								<li class="list-group-item">24x7 Support</li>
+								<li class="list-group-item"><button class="btn btn-success btn-lg">Sign Up</button></li>
+							</ul>
+						</div>
+						<p class="min-users">*Minimum 6 users</p>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12" id="features">
+						<h3>ServiceTrade Core Features</h3>
+						<table class="table table-hover">
+							<thead>
+								<tr>
+									<th>Feature</th>
+									<th>Basic</th>
+									<th>Plus</th>
+									<th>Max</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr>
+									<td><a href="#" data-toggle="tooltip" title="Available on the App Store, our app is native and written to take advantage of all of the latest hardware and software features of the iPhone." data-placement="right">iPhone App</a></td>
+									<td><span class="glyphicon glyphicon-ok"></span></td>
+									<td><span class="glyphicon glyphicon-ok"></span></td>
+									<td><span class="glyphicon glyphicon-ok"></span></td>
+								</tr>
+								<tr>
+									<td><a href="#" data-toggle="tooltip" title="Available on the Google Play Store, our app is native and written to take advantage of all of the latest hardware and software features of Android devices." data-placement="right">Android App</td>
+									<td><span class="glyphicon glyphicon-ok"></span></td>
+									<td><span class="glyphicon glyphicon-ok"></span></td>
+									<td><span class="glyphicon glyphicon-ok"></span></td>
+								</tr>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+		<!-- End Body Content -->
+		
+		<!-- Footer -->
+		<footer>
+			<div class="container">
+				<p>&copy; 2013 ServiceTrade</p>
+			</div>
+		</footer>
+		<!-- End Footer -->
+		
+		<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+		<script src="https://code.jquery.com/jquery.js"></script>
+		<!-- Include all compiled plugins (below), or include individual files as needed -->
+		<script src="js/bootstrap.min.js"></script>
+		<script>$('#features td a').tooltip();</script>
+	</body>
+</html>
